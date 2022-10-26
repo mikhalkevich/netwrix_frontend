@@ -1,0 +1,76 @@
+body {
+    font-family: Arial;
+    background: #F3F4FA;
+}
+* {
+    box-sizing: border-box;
+}
+.search {
+    width:100%;
+}
+.search input[type=text] {
+    padding: 10px;
+    font-size: 17px;
+    border: 1px solid grey;
+    float: left;
+    width: 80%;
+    background: #f1f1f1;
+    border-right:none;
+}
+.search button {
+    float: left;
+    width: 20%;
+    padding: 10px;
+    background:white;
+    color: #2196F3;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none;
+    cursor: pointer;
+}
+.search button:hover {
+    background: #0b7dda;
+}
+.search::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+.logotext {
+    margin-top: 20px;
+    line-height: 15px;
+    font-size:15px;
+}
+.no-bg {
+    background: no-repeat !important;
+    color:white;
+}
+.no-bg option{
+    color:black;
+}
+.pad {
+    padding-top: 20px;
+}
+.box {
+    margin: 20px;
+ padding: 10px;
+    background: white;
+}
+.sel_dis {
+    background: grey !important;
+    opacity: 0.5 !important;
+}
+#fon {
+    padding: 40px;
+    background: url('../img/bg.png') center;
+    text-align: center;
+    color:white;
+}
+#fon h1 {
+
+    margin: 0 auto;
+    padding-top: 40px;
+}
+#logo {
+    margin:20px ;
+}
