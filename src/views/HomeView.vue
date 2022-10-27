@@ -31,7 +31,8 @@
                           class="form-select no-bg" id="country"/>
             </div>
             <div class="col-md-3 pad">
-              <FormSelect :disabled="EnabledState" :options="states" v-model="SelectedState" :default_value="DefaultValueState"
+              <FormSelect :disabled="EnabledState" :options="states" v-model="SelectedState"
+                          :default_value="DefaultValueState"
                           class="form-select no-bg" :class="EnabledState?'sel_dis':'sel_en'" id="state"/>
             </div>
           </div>
@@ -68,23 +69,28 @@ const EnabledState = ref(true);
 const GetData = async () => {
   const response = await axios.get('partner/all?company=' + SelectedPartner.value);
   partners.value = response.data;
-  console.log(partners.value);
+  if(partners.value.length == 0 ){
+    const response = await axios.get('partner/all?address=' + SelectedPartner.value);
+    partners.value = response.data;
+  }
 };
 watch(SelectedType, async (newValue) => {
-  const response_partner = await axios.get('partner/all?type=' + newValue);
+  const response_partner = await axios.get('partner/all?type=' + newValue + '&country=' + SelectedCountry.value);
   partners.value = response_partner.data;
 });
 watch(SelectedCountry, async (newValue) => {
-  const response_partner = await axios.get('partner/all?country=' + newValue);
+  const response_partner = await axios.get('partner/all?country=' + newValue + '&type=' + SelectedType.value);
   partners.value = response_partner.data;
   const response_state = await axios.get('states/' + newValue);
   states.value = response_state.data.data;
-  if(states.value.length > 0){
+  if (states.value.length > 0) {
     EnabledState.value = false;
+  }else{
+    EnabledState.value = true;
   }
 })
 watch(SelectedState, async (newValue) => {
-  const response_partner = await axios.get('partner/all?state=' + newValue);
+  const response_partner = await axios.get('partner/all?state=' + newValue + '&country=' + SelectedCountry.value + '&type=' + SelectedType.value);
   partners.value = response_partner.data;
 });
 onMounted(async () => {
@@ -95,5 +101,4 @@ onMounted(async () => {
   const response_partner = await axios.get('partner/all');
   partners.value = response_partner.data;
 });
-
 </script>
